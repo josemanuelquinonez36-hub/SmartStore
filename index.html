@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SmartStore — Cuentas Premium & Tecnología</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #060608;
+  --surface: #111114;
+  --surface2: #18181c;
+  --border: rgba(255,255,255,0.07);
+  --white: #f0f0ee;
+  --muted: #666;
+  --green: #00e676;
+  --green-dark: #00b85a;
+  --r: 14px;
+  --wa: #25D366;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--green);border-radius:3px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:64px;background:rgba(6,6,8,0.85);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);transition:height .3s}
+.logo{font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:800;letter-spacing:-.5px;text-decoration:none;color:var(--white)}
+.logo em{color:var(--green);font-style:normal}
+.nav-menu{display:flex;gap:28px;list-style:none}
+.nav-menu a{color:var(--muted);text-decoration:none;font-size:.875rem;font-weight:500;transition:color .2s}
+.nav-menu a:hover{color:var(--white)}
+.nav-cta{background:var(--green);color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;padding:9px 20px;border-radius:50px;text-decoration:none;display:flex;align-items:center;gap:6px;transition:background .2s,transform .15s;white-space:nowrap}
+.nav-cta:hover{background:var(--green-dark);transform:scale(1.03)}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.burger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:.3s}
+.mobile-nav{display:none;flex-direction:column;position:fixed;top:64px;left:0;right:0;z-index:899;background:rgba(6,6,8,.97);border-bottom:1px solid var(--border);padding:20px 24px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{color:var(--muted);text-decoration:none;font-size:1rem;padding:10px 0;border-bottom:1px solid var(--border);transition:color .2s}
+.mobile-nav a:last-child{border-bottom:none}
+.mobile-nav a:hover{color:var(--green)}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 20px 60px;position:relative;overflow:hidden}
+.hero-orb{position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(0,230,118,.09) 0%,transparent 65%);pointer-events:none}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,230,118,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,230,118,.03) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 60% at 50% 30%,#000 30%,transparent 80%)}
+.hero-inner{position:relative;z-index:1;max-width:720px}
+.hero-pill{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(0,230,118,.3);background:rgba(0,230,118,.07);color:var(--green);font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 16px;border-radius:50px;margin-bottom:28px;animation:fadeUp .6s both}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,5.5vw,4rem);font-weight:800;line-height:1.08;letter-spacing:-1.5px;margin-bottom:18px;animation:fadeUp .6s .1s both}
+.hero-title .hl{color:var(--green)}
+.hero-sub{color:var(--muted);font-size:1.05rem;font-weight:300;margin-bottom:38px;animation:fadeUp .6s .2s both}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:fadeUp .6s .3s both}
+.btn-g{background:var(--green);color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;padding:14px 30px;border-radius:50px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 0 28px rgba(0,230,118,.28);transition:all .2s}
+.btn-g:hover{background:var(--green-dark);transform:translateY(-2px);box-shadow:0 4px 40px rgba(0,230,118,.38)}
+.btn-ghost{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.14);font-family:'Syne',sans-serif;font-weight:600;font-size:.9rem;padding:14px 30px;border-radius:50px;text-decoration:none;transition:all .2s}
+.btn-ghost:hover{border-color:var(--green);color:var(--green)}
+.hero-numbers{display:flex;gap:48px;justify-content:center;flex-wrap:wrap;margin-top:60px;animation:fadeUp .6s .4s both}
+.num-item{text-align:center}
+.num-val{font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;color:var(--green);line-height:1}
+.num-lbl{font-size:.78rem;color:var(--muted);margin-top:4px}
+
+/* SECTIONS */
+section{padding:88px 20px}
+.wrap{max-width:1180px;margin:0 auto}
+.sec-head{text-align:center;margin-bottom:52px}
+.sec-tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+.sec-title{font-family:'Syne',sans-serif;font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:800;letter-spacing:-.8px}
+.sec-sub{color:var(--muted);font-size:.92rem;margin-top:8px}
+
+/* TABS */
+#digitales{background:var(--surface)}
+.tab-bar{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-bottom:40px}
+.tab{background:var(--surface2);color:var(--muted);border:1px solid var(--border);font-family:'Syne',sans-serif;font-weight:600;font-size:.78rem;padding:8px 18px;border-radius:50px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px}
+.tab:hover{color:var(--white);border-color:rgba(255,255,255,.18)}
+.tab.on{background:var(--green);color:#000;border-color:var(--green)}
+.tab-panel{display:none}
+.tab-panel.on{display:block}
+
+/* PRODUCT GRID */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:14px}
+
+/* CARD */
+.card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:20px 18px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden;transition:transform .25s,border-color .25s,box-shadow .25s}
+.card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 10%,rgba(0,230,118,.07),transparent 55%);opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover{transform:translateY(-5px);border-color:rgba(0,230,118,.22);box-shadow:0 14px 44px rgba(0,0,0,.45)}
+.card:hover::after{opacity:1}
+.card-logo{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+.logo-netflix{background:#141414;border:1px solid #E50914}
+.logo-disney{background:#0f1b4c}
+.logo-hbo{background:#1a0036}
+.logo-amazon{background:#1a2644}
+.logo-spotify{background:#0d1a0d}
+.logo-youtube{background:#2a0a0a}
+.logo-crunchyroll{background:#2a1500}
+.logo-canva{background:#0a1a2a}
+.logo-chatgpt{background:#0d1a14}
+.logo-gemini{background:#1a0d2e}
+.card-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;line-height:1.3;color:var(--white)}
+.card-price{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:800;color:var(--green)}
+.card-price small{font-size:.65rem;font-weight:400;color:var(--muted);font-family:'DM Sans',sans-serif;margin-left:2px}
+.btn-wa-card{background:rgba(0,230,118,.09);color:var(--green);border:1px solid rgba(0,230,118,.22);font-family:'Syne',sans-serif;font-weight:700;font-size:.74rem;padding:9px;border-radius:9px;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px;margin-top:auto;transition:all .2s}
+.btn-wa-card:hover{background:var(--green);color:#000}
+
+/* FISICOS */
+#fisicos{background:var(--bg)}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+.fcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,border-color .25s,box-shadow .25s;position:relative}
+.fcard:hover{transform:translateY(-5px);border-color:rgba(0,230,118,.22);box-shadow:0 16px 48px rgba(0,0,0,.5)}
+.fcard-img{background:var(--surface2);height:180px;display:flex;align-items:center;justify-content:center;font-size:5rem;position:relative;overflow:hidden}
+.fcard-img::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 60% 40%,rgba(0,230,118,.05),transparent 60%)}
+.fcard-body{padding:20px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+.fcard-badge{position:absolute;top:12px;right:12px;background:var(--green);color:#000;font-size:.6rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:50px}
+.fcard-name{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem}
+.fcard-price{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--green)}
+.fcard-price small{font-size:.7rem;color:var(--muted);font-weight:400;font-family:'DM Sans',sans-serif}
+
+/* COMBOS */
+#combos{background:var(--surface)}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.ccard{background:linear-gradient(145deg,#0e0e12,#141418);border:1px solid rgba(0,230,118,.18);border-radius:var(--r);padding:26px 22px;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;display:flex;flex-direction:column;gap:14px}
+.ccard:hover{transform:translateY(-5px);box-shadow:0 16px 50px rgba(0,230,118,.1)}
+.ccard::before{content:'';position:absolute;top:-50px;right:-50px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(0,230,118,.12),transparent 65%);pointer-events:none}
+.combo-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(0,230,118,.1);color:var(--green);font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 12px;border-radius:50px}
+.combo-logos{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.combo-logo{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;border:1px solid rgba(255,255,255,.08)}
+.combo-plus{color:var(--muted);font-size:.85rem;font-weight:700}
+.combo-name{font-family:'Syne',sans-serif;font-weight:800;font-size:.97rem;line-height:1.35}
+.combo-pricing{display:flex;align-items:baseline;gap:10px}
+.combo-old{color:var(--muted);text-decoration:line-through;font-size:.95rem}
+.combo-new{font-family:'Syne',sans-serif;font-size:1.65rem;font-weight:800;color:var(--green)}
+.combo-save{font-size:.75rem;color:var(--green);font-weight:600}
+
+/* BENEFITS */
+#beneficios{background:var(--bg)}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
+.bcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:26px 22px;transition:border-color .2s,transform .2s}
+.bcard:hover{border-color:rgba(0,230,118,.2);transform:translateY(-3px)}
+.bcard-icon{font-size:2rem;margin-bottom:14px}
+.bcard-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.97rem;margin-bottom:6px}
+.bcard-desc{color:var(--muted);font-size:.84rem;line-height:1.5}
+
+/* WA FLOAT */
+.wa-float{position:fixed;bottom:26px;right:26px;z-index:999;width:56px;height:56px;border-radius:50%;background:var(--wa);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.4rem;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,.45);animation:waPulse 2.5s ease-in-out infinite;transition:transform .2s}
+.wa-float:hover{transform:scale(1.1);animation:none;box-shadow:0 6px 32px rgba(37,211,102,.65)}
+
+/* FOOTER */
+footer{background:#030305;border-top:1px solid var(--border);padding:48px 20px 28px;text-align:center}
+.ft-logo{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:8px}
+.ft-logo em{color:var(--green);font-style:normal}
+.ft-sub{color:var(--muted);font-size:.85rem;margin-bottom:26px}
+.ft-links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-bottom:22px}
+.ft-links a{color:var(--muted);text-decoration:none;font-size:.85rem;transition:color .2s}
+.ft-links a:hover{color:var(--green)}
+.ft-socials{display:flex;gap:10px;justify-content:center;margin-bottom:24px}
+.social{width:36px;height:36px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;font-size:.9rem;transition:all .2s}
+.social:hover{background:var(--green);color:#000;border-color:var(--green)}
+.ft-copy{color:#333;font-size:.74rem}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s,transform .65s}
+.reveal.vis{opacity:1;transform:none}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes waPulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.45)}50%{box-shadow:0 4px 40px rgba(37,211,102,.72)}}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:0 18px}
+  .nav-menu,.nav-cta{display:none}
+  .burger{display:flex}
+  .hero-numbers{gap:28px}
+  .pgrid{grid-template-columns:1fr 1fr;gap:10px}
+  .card{padding:14px 12px}
+}
+@media(max-width:420px){
+  .fgrid{grid-template-columns:1fr}
+  .cgrid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="logo" href="#hero">Smart<em>Store</em></a>
+  <ul class="nav-menu">
+    <li><a href="#hero">Inicio</a></li>
+    <li><a href="#digitales">Productos</a></li>
+    <li><a href="#combos">Combos</a></li>
+    <li><a href="#footer">Contacto</a></li>
+  </ul>
+  <a class="nav-cta" href="https://wa.me/573215045684?text=Hola,%20quiero%20comprar%20en%20SmartStore" target="_blank">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.522 5.849L.057 23.009a1 1 0 001.211 1.329l5.346-1.408A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.502-5.17-1.38l-.371-.219-3.821 1.006 1.023-3.73-.24-.386A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    Comprar por WhatsApp
+  </a>
+  <div class="burger" id="burger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="#hero" onclick="toggleMenu()">Inicio</a>
+  <a href="#digitales" onclick="toggleMenu()">Productos</a>
+  <a href="#combos" onclick="toggleMenu()">Combos</a>
+  <a href="#footer" onclick="toggleMenu()">Contacto</a>
+  <a href="https://wa.me/573215045684?text=Hola,%20quiero%20comprar%20en%20SmartStore" target="_blank" style="color:var(--green);font-weight:700">💬 Comprar por WhatsApp</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-orb"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-pill">🔥 Precios imbatibles — Entrega inmediata</div>
+    <h1 class="hero-title">Los mejores precios en<br>cuentas premium<br>y <span class="hl">tecnología</span></h1>
+    <p class="hero-sub">Compra fácil, rápida y segura — directo por WhatsApp</p>
+    <div class="hero-btns">
+      <a href="#digitales" class="btn-g">Ver productos ↓</a>
+      <a href="https://wa.me/573215045684?text=Hola,%20quiero%20comprar%20en%20SmartStore" target="_blank" class="btn-ghost">💬 Escribir ahora</a>
+    </div>
+    <div class="hero-numbers">
+      <div class="num-item"><div class="num-val">500+</div><div class="num-lbl">Clientes felices</div></div>
+      <div class="num-item"><div class="num-val">40+</div><div class="num-lbl">Productos</div></div>
+      <div class="num-item"><div class="num-val">24/7</div><div class="num-lbl">Atención disponible</div></div>
+      <div class="num-item"><div class="num-val">100%</div><div class="num-lbl">Garantía</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DIGITALES -->
+<section id="digitales">
+<div class="wrap">
+  <div class="sec-head reveal">
+    <div class="sec-tag">📱 Cuentas Digitales</div>
+    <h2 class="sec-title">Streaming & Herramientas</h2>
+    <p class="sec-sub">Acceso inmediato · Precios imbatibles · Garantía incluida</p>
+  </div>
+  <div class="tab-bar">
+    <button class="tab on" onclick="showTab('netflix',this)">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="#E50914"><path d="M5 3h4l5 13.5V3h4v18h-4L9 7.5V21H5z"/></svg>Netflix
+    </button>
+    <button class="tab" onclick="showTab('disney',this)">🏰 Disney+</button>
+    <button class="tab" onclick="showTab('hbo',this)">🎬 Max</button>
+    <button class="tab" onclick="showTab('amazon',this)">📦 Amazon</button>
+    <button class="tab" onclick="showTab('spotify',this)">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="#1DB954"><circle cx="12" cy="12" r="12"/><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1zm-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.2.4.55.25.85zM12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0z" fill="white"/></svg>Spotify
+    </button>
+    <button class="tab" onclick="showTab('youtube',this)">▶️ YouTube</button>
+    <button class="tab" onclick="showTab('crunchyroll',this)">🍜 Crunchyroll</button>
+    <button class="tab" onclick="showTab('tools',this)">🛠️ Herramientas</button>
+  </div>
+
+  <!-- NETFLIX -->
+  <div class="tab-panel on" id="tab-netflix">
+    <div class="pgrid">
+      <div class="card"><div class="card-logo logo-netflix"><svg width="26" height="26" viewBox="0 0 24 24" fill="#E50914"><path d="M5 3h4l5 13.5V3h4v18h-4L9 7.5V21H5z"/></svg></div><div class="card-name">Netflix Pantalla</div><div class="card-price">$11.500 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Netflix%20Pantalla%20$11.500" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo logo-netflix"><svg width="26" height="26" viewBox="0 0 24 24" fill="#E50914"><path d="M5 3h4l5 13.5V3h4v18h-4L9 7.5V21H5z"/></svg></div><div class="card-name">Netflix Completa Colombia</div><div class="card-price">$47.500 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Netflix%20Completa%20Colombia%20$47.500" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo logo-netflix"><svg width="26" height="26" viewBox="0 0 24 24" fill="#E50914"><path d="M5 3h4l5 13.5V3h4v18h-4L9 7.5V21H5z"/></svg></div><div class="card-name">Netflix Internacional Pantalla</div><div class="card-price">$11.000 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Netflix%20Internacional%20Pantalla%20$11.000" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo logo-netflix"><svg width="26" height="26" viewBox="0 0 24 24" fill="#E50914"><path d="M5 3h4l5 13.5V3h4v18h-4L9 7.5V21H5z"/></svg></div><div class="card-name">Netflix Internacional Completa</div><div class="card-price">$45.500 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Netflix%20Internacional%20Completa%20$45.500" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo logo-netflix"><svg width="26" height="26" viewBox="0 0 24 24" fill="#E50914"><path d="M5 3h4l5 13.5V3h4v18h-4L9 7.5V21H5z"/></svg></div><div class="card-name">Netflix 13 Días</div><div class="card-price">$6.500 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Netflix%2013%20Dias%20$6.500" target="_blank">💬 Comprar</a></div>
+    </div>
+  </div>
+
+  <!-- DISNEY -->
+  <div class="tab-panel" id="tab-disney">
+    <div class="pgrid">
+      <div class="card"><div class="card-logo logo-disney" style="font-size:1.5rem">🏰</div><div class="card-name">Disney+ Pantalla Estándar</div><div class="card-price">$4.500 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Disney+%20Pantalla%20Estandar%20$4.500" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo logo-disney" style="font-size:1.5rem">🏰</div><div class="card-name">Disney+ Completa Estándar</div><div class="card-price">$11.500 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Disney+%20Completa%20Estandar%20$11.500" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo logo-disney" style="font-size:1.5rem">⭐</div><div class="card-name">Disney+ Premium Pantalla</div><div class="card-price">$9.500 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Disney+%20Premium%20Pantalla%20$9.500" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo logo-disney" style="font-size:1.5rem">⭐</div><div class="card-name">Disney+ Premium Completa</div><div class="card-price">$32.500 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Disney+%20Premium%20Completa%20$32.500" target="_blank">💬 Comprar</a></div>
+    </div>
+  </div>
+
+  <!-- HBO MAX -->
+  <div class="tab-panel" id="tab-hbo">
+    <div class="pgrid">
+      <div class="card"><div class="card-logo logo-hbo" style="font-size:1.3rem">💎</div><div class="card-name">Max Platino Completa</div><div class="card-price">$20.000 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Max%20Platino%20Completa%20$20.000" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo logo-hbo" style="font-size:1.3rem">💎</div><div class="card-name">Max Platino Pantalla</div><div class="card-price">$5.500 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Max%20Platino%20Pantalla%20$5.500" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo logo-hbo" style="font-size:1.3rem">🎬</div><div class="card-name">Max Original Completa</div><div class="card-price">$15.500 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Max%20Original%20Completa%20$15.500" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo logo-hbo" style="font-size:1.3rem">🎬</div><div class="card-name">Max Original Pantalla</div><div class="card-price">$5.500 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Max%20Original%20Pantalla%20$5.500" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo logo-hbo" style="font-size:1.3rem">📡</div><div class="card-name">Max Genérica Completa</div><div class="card-price">$8.500 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Max%20Generica%20Completa%20$8.500" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo logo-hbo" style="font-size:1.3rem">📡</div><div class="card-name">Max Genérica Pantalla</div><div class="card-price">$4.000 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Max%20Generica%20Pantalla%20$4.000" target="_blank">💬 Comprar</a></div>
+    </div>
+  </div>
+
+  <!-- AMAZON -->
+  <div class="tab-panel" id="tab-amazon">
+    <div class="pgrid">
+      <div class="card"><div class="card-logo logo-amazon" style="font-size:1.4rem">📦</div><div class="card-name">Amazon Prime Pantalla</div><div class="card-price">$3.500 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Amazon%20Prime%20Pantalla%20$3.500" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo logo-amazon" style="font-size:1.4rem">📦</div><div class="card-name">Amazon Prime Completa</div><div class="card-price">$17.500 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Amazon%20Prime%20Completa%20$17.500" target="_blank">💬 Comprar</a></div>
+    </div>
+  </div>
+
+  <!-- SPOTIFY -->
+  <div class="tab-panel" id="tab-spotify">
+    <div class="pgrid">
+      <div class="card"><div class="card-logo logo-spotify"><svg width="28" height="28" viewBox="0 0 24 24" fill="#1DB954"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></div><div class="card-name">Spotify 1 Mes</div><div class="card-price">$8.500 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Spotify%201%20Mes%20$8.500" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo logo-spotify"><svg width="28" height="28" viewBox="0 0 24 24" fill="#1DB954"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></div><div class="card-name">Spotify 2 Meses</div><div class="card-price">$15.000 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Spotify%202%20Meses%20$15.000" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo logo-spotify"><svg width="28" height="28" viewBox="0 0 24 24" fill="#1DB954"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></div><div class="card-name">Spotify 3 Meses</div><div class="card-price">$21.000 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Spotify%203%20Meses%20$21.000" target="_blank">💬 Comprar</a></div>
+    </div>
+  </div>
+
+  <!-- YOUTUBE -->
+  <div class="tab-panel" id="tab-youtube">
+    <div class="pgrid">
+      <div class="card"><div class="card-logo logo-youtube"><svg width="28" height="20" viewBox="0 0 576 404" fill="none"><path d="M549 55.4C542.3 30.7 523.3 11.4 499 4.7 455.6 0 288 0 288 0S120.4 0 77 4.7C52.7 11.4 33.7 30.7 27 55.4 0 99.1 0 202 0 202s0 102.9 27 146.6c6.7 24.7 25.7 44 50 50.7C120.4 404 288 404 288 404s167.6 0 211-4.7c24.3-6.7 43.3-26 50-50.7C576 304.9 576 202 576 202s0-102.9-27-146.6z" fill="#FF0000"/><path d="M230 289l142-87-142-87v174z" fill="white"/></svg></div><div class="card-name">YouTube Premium 1 Mes</div><div class="card-price">$9.500 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20YouTube%20Premium%201%20Mes%20$9.500" target="_blank">💬 Comprar</a></div>
+    </div>
+  </div>
+
+  <!-- CRUNCHYROLL -->
+  <div class="tab-panel" id="tab-crunchyroll">
+    <div class="pgrid">
+      <div class="card"><div class="card-logo logo-crunchyroll" style="font-size:1.5rem">🍜</div><div class="card-name">Crunchyroll Pantalla</div><div class="card-price">$6.500 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Crunchyroll%20Pantalla%20$6.500" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo logo-crunchyroll" style="font-size:1.5rem">🍜</div><div class="card-name">Crunchyroll Completa</div><div class="card-price">$8.500 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Crunchyroll%20Completa%20$8.500" target="_blank">💬 Comprar</a></div>
+    </div>
+  </div>
+
+  <!-- HERRAMIENTAS -->
+  <div class="tab-panel" id="tab-tools">
+    <div class="pgrid">
+      <div class="card"><div class="card-logo logo-canva"><svg width="28" height="28" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="14" fill="#00C4CC"/><path d="M32 10c-12.15 0-22 9.85-22 22s9.85 22 22 22 22-9.85 22-22-9.85-22-22-22zm8 28.5c-1.66 1.66-3.87 2.57-6.22 2.57-4.86 0-8.82-3.95-8.82-8.82s3.96-8.82 8.82-8.82c2.35 0 4.56.91 6.22 2.57l-2.6 2.6c-.97-.97-2.26-1.5-3.62-1.5-2.83 0-5.15 2.3-5.15 5.15s2.32 5.15 5.15 5.15c1.36 0 2.65-.53 3.62-1.5L40 38.5z" fill="white"/></svg></div><div class="card-name">Canva Pro 12 Meses</div><div class="card-price">$18.000 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Canva%20Pro%2012%20Meses%20$18.000" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo logo-canva"><svg width="28" height="28" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="14" fill="#00C4CC"/><path d="M32 10c-12.15 0-22 9.85-22 22s9.85 22 22 22 22-9.85 22-22-9.85-22-22-22zm8 28.5c-1.66 1.66-3.87 2.57-6.22 2.57-4.86 0-8.82-3.95-8.82-8.82s3.96-8.82 8.82-8.82c2.35 0 4.56.91 6.22 2.57l-2.6 2.6c-.97-.97-2.26-1.5-3.62-1.5-2.83 0-5.15 2.3-5.15 5.15s2.32 5.15 5.15 5.15c1.36 0 2.65-.53 3.62-1.5L40 38.5z" fill="white"/></svg></div><div class="card-name">Canva Pro 45 Días</div><div class="card-price">$4.900 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Canva%20Pro%2045%20Dias%20$4.900" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo" style="background:#0a0a1a;border-radius:10px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:1.4rem">🎬</div><div class="card-name">CapCut Pro</div><div class="card-price">$16.000 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20CapCut%20Pro%20$16.000" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo logo-chatgpt"><svg width="28" height="28" viewBox="0 0 41 41" fill="none"><path d="M37.532 16.87a9.963 9.963 0 0 0-.856-8.184 10.078 10.078 0 0 0-10.855-4.835 9.964 9.964 0 0 0-6.505-3.102 10.079 10.079 0 0 0-10.244 4.946 9.963 9.963 0 0 0-6.629 4.815 10.079 10.079 0 0 0 1.24 11.817 9.965 9.965 0 0 0 .856 8.185 10.079 10.079 0 0 0 10.855 4.835 9.965 9.965 0 0 0 6.506 3.102 10.079 10.079 0 0 0 10.245-4.947 9.965 9.965 0 0 0 6.629-4.814 10.079 10.079 0 0 0-1.243-11.818zm-15.023 20.997a7.48 7.48 0 0 1-4.801-1.735c.061-.033.168-.091.237-.134l7.964-4.6a1.294 1.294 0 0 0 .655-1.134V19.054l3.366 1.944a.12.12 0 0 1 .066.092v9.299a7.505 7.505 0 0 1-7.487 7.498zM6.392 33.11a7.471 7.471 0 0 1-.894-5.023c.06.036.162.099.237.141l7.964 4.6a1.297 1.297 0 0 0 1.308 0l9.724-5.614v3.888a.12.12 0 0 1-.048.103l-8.051 4.649a7.504 7.504 0 0 1-10.24-2.744zM4.297 13.62A7.469 7.469 0 0 1 8.2 10.333c0 .068-.004.19-.004.274v9.201a1.294 1.294 0 0 0 .654 1.132l9.723 5.614-3.366 1.944a.12.12 0 0 1-.114.012L7.044 23.86a7.504 7.504 0 0 1-2.747-10.24zm27.658 6.437l-9.724-5.615 3.367-1.943a.121.121 0 0 1 .114-.012l8.048 4.648a7.498 7.498 0 0 1-1.158 13.528v-9.476a1.293 1.293 0 0 0-.647-1.13zm3.35-5.043c-.059-.037-.162-.099-.236-.141l-7.965-4.6a1.298 1.298 0 0 0-1.308 0l-9.723 5.614v-3.888a.12.12 0 0 1 .048-.103l8.05-4.645a7.497 7.497 0 0 1 11.135 7.763zm-21.063 6.929l-3.367-1.944a.12.12 0 0 1-.065-.092v-9.299a7.497 7.497 0 0 1 12.293-5.756 6.94 6.94 0 0 0-.236.134l-7.965 4.6a1.294 1.294 0 0 0-.654 1.132l-.006 11.225zm1.829-3.943l4.33-2.501 4.332 2.499v4.999l-4.331 2.5-4.331-2.5V18z" fill="#10a37f"/></svg></div><div class="card-name">ChatGPT Plus</div><div class="card-price">$16.000 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20ChatGPT%20Plus%20$16.000" target="_blank">💬 Comprar</a></div>
+      <div class="card"><div class="card-logo logo-gemini" style="font-size:1.4rem">✨</div><div class="card-name">Gemini Pro</div><div class="card-price">$20.500 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Gemini%20Pro%20$20.500" target="_blank">💬 Comprar</a></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FÍSICOS -->
+<section id="fisicos">
+<div class="wrap">
+  <div class="sec-head reveal">
+    <div class="sec-tag">📦 Productos Físicos</div>
+    <h2 class="sec-title">AirPods & Relojes</h2>
+    <p class="sec-sub">Tecnología premium · Envío rápido · Con garantía</p>
+  </div>
+  <div class="fgrid reveal">
+    <div class="fcard"><div class="fcard-badge">HOT</div><div class="fcard-img">🎧</div><div class="fcard-body"><div class="fcard-name">AirPods Pro 2</div><div class="fcard-price">$45.000 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20AirPods%20Pro%202%20$45.000" target="_blank">💬 Comprar</a></div></div>
+    <div class="fcard"><div class="fcard-img">🎧</div><div class="fcard-body"><div class="fcard-name">AirPods Pro 3</div><div class="fcard-price">$80.000 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20AirPods%20Pro%203%20$80.000" target="_blank">💬 Comprar</a></div></div>
+    <div class="fcard"><div class="fcard-img">🎧</div><div class="fcard-body"><div class="fcard-name">AirPods 4</div><div class="fcard-price">$55.000 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20AirPods%204%20$55.000" target="_blank">💬 Comprar</a></div></div>
+    <div class="fcard"><div class="fcard-badge">PREMIUM</div><div class="fcard-img">🎧</div><div class="fcard-body"><div class="fcard-name">AirPods Max</div><div class="fcard-price">$80.000 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20AirPods%20Max%20$80.000" target="_blank">💬 Comprar</a></div></div>
+    <div class="fcard"><div class="fcard-badge">NUEVO</div><div class="fcard-img">⌚</div><div class="fcard-body"><div class="fcard-name">Apple Watch Serie 10</div><div class="fcard-price">$150.000 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Apple%20Watch%20Serie%2010%20$150.000" target="_blank">💬 Comprar</a></div></div>
+    <div class="fcard"><div class="fcard-img">⌚</div><div class="fcard-body"><div class="fcard-name">Redmi Watch</div><div class="fcard-price">$130.000 <small>COP</small></div><a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20Redmi%20Watch%20$130.000" target="_blank">💬 Comprar</a></div></div>
+  </div>
+</div>
+</section>
+
+<!-- COMBOS -->
+<section id="combos">
+<div class="wrap">
+  <div class="sec-head reveal">
+    <div class="sec-tag">🔥 Combos Especiales</div>
+    <h2 class="sec-title">Ahorra más en combo</h2>
+    <p class="sec-sub">Los paquetes más vendidos · Precio irresistible</p>
+  </div>
+  <div class="cgrid reveal">
+
+    <div class="ccard">
+      <div class="combo-tag">🔥 Combo</div>
+      <div class="combo-logos">
+        <div class="combo-logo" style="background:#111;font-size:1rem">🎧</div>
+        <span class="combo-plus">+</span>
+        <div class="combo-logo logo-spotify"><svg width="20" height="20" viewBox="0 0 24 24" fill="#1DB954"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></div>
+      </div>
+      <div class="combo-name">AirPods Pro 2 + Spotify 1 mes</div>
+      <div class="combo-pricing"><span class="combo-old">$53.500</span><span class="combo-new">$52.000</span></div>
+      <div class="combo-save">✅ Ahorra $1.500</div>
+      <a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20el%20combo%20AirPods%20Pro%202%20+%20Spotify%20por%20$52.000" target="_blank">💬 Quiero este combo</a>
+    </div>
+
+    <div class="ccard">
+      <div class="combo-tag">🔥 Combo</div>
+      <div class="combo-logos">
+        <div class="combo-logo" style="background:#111;font-size:1rem">🎧</div>
+        <span class="combo-plus">+</span>
+        <div class="combo-logo logo-spotify"><svg width="20" height="20" viewBox="0 0 24 24" fill="#1DB954"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></div>
+      </div>
+      <div class="combo-name">AirPods 4 + Spotify 3 meses</div>
+      <div class="combo-pricing"><span class="combo-old">$76.000</span><span class="combo-new">$73.500</span></div>
+      <div class="combo-save">✅ Ahorra $2.500</div>
+      <a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20el%20combo%20AirPods%204%20+%20Spotify%203%20meses%20por%20$73.500" target="_blank">💬 Quiero este combo</a>
+    </div>
+
+    <div class="ccard">
+      <div class="combo-tag">⭐ Popular</div>
+      <div class="combo-logos">
+        <div class="combo-logo" style="background:#111;font-size:1rem">🎧</div>
+        <span class="combo-plus">+</span>
+        <div class="combo-logo logo-spotify"><svg width="18" height="18" viewBox="0 0 24 24" fill="#1DB954"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></div>
+        <span class="combo-plus">+</span>
+        <div class="combo-logo logo-youtube"><svg width="18" height="13" viewBox="0 0 576 404"><path d="M549 55.4C542.3 30.7 523.3 11.4 499 4.7 455.6 0 288 0 288 0S120.4 0 77 4.7C52.7 11.4 33.7 30.7 27 55.4 0 99.1 0 202 0 202s0 102.9 27 146.6c6.7 24.7 25.7 44 50 50.7C120.4 404 288 404 288 404s167.6 0 211-4.7c24.3-6.7 43.3-26 50-50.7C576 304.9 576 202 576 202s0-102.9-27-146.6z" fill="#FF0000"/><path d="M230 289l142-87-142-87v174z" fill="white"/></svg></div>
+      </div>
+      <div class="combo-name">AirPods Pro 3 + Spotify + YouTube</div>
+      <div class="combo-pricing"><span class="combo-old">$98.000</span><span class="combo-new">$95.000</span></div>
+      <div class="combo-save">✅ Ahorra $3.000</div>
+      <a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20el%20combo%20AirPods%20Pro%203%20+%20Spotify%20+%20YouTube%20por%20$95.000" target="_blank">💬 Quiero este combo</a>
+    </div>
+
+    <div class="ccard">
+      <div class="combo-tag">🏆 Premium</div>
+      <div class="combo-logos">
+        <div class="combo-logo" style="background:#111;font-size:1rem">🎧</div>
+        <span class="combo-plus">+</span>
+        <div class="combo-logo logo-spotify"><svg width="18" height="18" viewBox="0 0 24 24" fill="#1DB954"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></div>
+        <span class="combo-plus">+</span>
+        <div class="combo-logo logo-netflix"><svg width="16" height="16" viewBox="0 0 24 24" fill="#E50914"><path d="M5 3h4l5 13.5V3h4v18h-4L9 7.5V21H5z"/></svg></div>
+      </div>
+      <div class="combo-name">AirPods Max + Spotify + Netflix</div>
+      <div class="combo-pricing"><span class="combo-old">$100.000</span><span class="combo-new">$96.500</span></div>
+      <div class="combo-save">✅ Ahorra $3.500</div>
+      <a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20el%20combo%20AirPods%20Max%20+%20Spotify%20+%20Netflix%20por%20$96.500" target="_blank">💬 Quiero este combo</a>
+    </div>
+
+    <div class="ccard">
+      <div class="combo-tag">🔥 Combo</div>
+      <div class="combo-logos">
+        <div class="combo-logo" style="background:#111;font-size:1rem">🎧</div>
+        <span class="combo-plus">+</span>
+        <div class="combo-logo logo-netflix"><svg width="18" height="18" viewBox="0 0 24 24" fill="#E50914"><path d="M5 3h4l5 13.5V3h4v18h-4L9 7.5V21H5z"/></svg></div>
+      </div>
+      <div class="combo-name">AirPods Pro 2 + Netflix</div>
+      <div class="combo-pricing"><span class="combo-old">$57.000</span><span class="combo-new">$54.500</span></div>
+      <div class="combo-save">✅ Ahorra $2.500</div>
+      <a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20el%20combo%20AirPods%20Pro%202%20+%20Netflix%20por%20$54.500" target="_blank">💬 Quiero este combo</a>
+    </div>
+
+    <div class="ccard">
+      <div class="combo-tag">💥 Mega Combo</div>
+      <div class="combo-logos">
+        <div class="combo-logo" style="background:#111;font-size:1rem">🎧</div>
+        <span class="combo-plus">+</span>
+        <div class="combo-logo logo-spotify"><svg width="16" height="16" viewBox="0 0 24 24" fill="#1DB954"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></div>
+        <span class="combo-plus">+</span>
+        <div class="combo-logo logo-netflix"><svg width="14" height="14" viewBox="0 0 24 24" fill="#E50914"><path d="M5 3h4l5 13.5V3h4v18h-4L9 7.5V21H5z"/></svg></div>
+        <span class="combo-plus">+</span>
+        <div class="combo-logo logo-disney" style="font-size:.8rem">🏰</div>
+      </div>
+      <div class="combo-name">AirPods + Spotify + Netflix + Disney+</div>
+      <div class="combo-pricing"><span class="combo-old">$71.000</span><span class="combo-new">$65.000</span></div>
+      <div class="combo-save">✅ Ahorra $6.000</div>
+      <a class="btn-wa-card" href="https://wa.me/573215045684?text=Hola,%20quiero%20el%20Mega%20Combo%20AirPods%20+%20Spotify%20+%20Netflix%20+%20Disney+%20por%20$65.000" target="_blank">💬 Quiero este combo</a>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- BENEFICIOS -->
+<section id="beneficios" style="background:var(--bg)">
+<div class="wrap">
+  <div class="sec-head reveal">
+    <div class="sec-tag">✅ Por qué elegirnos</div>
+    <h2 class="sec-title">Tu compra, segura</h2>
+    <p class="sec-sub">Miles de clientes confían en SmartStore</p>
+  </div>
+  <div class="bgrid reveal">
+    <div class="bcard"><div class="bcard-icon">⚡</div><div class="bcard-title">Entrega rápida</div><div class="bcard-desc">Cuentas digitales activadas en minutos tras tu pago. Sin esperas.</div></div>
+    <div class="bcard"><div class="bcard-icon">🛡️</div><div class="bcard-title">Garantía incluida</div><div class="bcard-desc">Si hay un problema con tu cuenta, lo solucionamos sin preguntas.</div></div>
+    <div class="bcard"><div class="bcard-icon">💬</div><div class="bcard-title">Atención personalizada</div><div class="bcard-desc">Te acompañamos en todo el proceso directamente por WhatsApp.</div></div>
+    <div class="bcard"><div class="bcard-icon">🔒</div><div class="bcard-title">Pagos seguros</div><div class="bcard-desc">Múltiples métodos de pago verificados. Tu dinero siempre protegido.</div></div>
+  </div>
+</div>
+</section>
+
+<!-- WA FLOAT -->
+<a class="wa-float" href="https://wa.me/573215045684?text=Hola,%20quiero%20comprar%20en%20SmartStore" target="_blank" title="Comprar por WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.522 5.849L.057 23.009a1 1 0 001.211 1.329l5.346-1.408A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.502-5.17-1.38l-.371-.219-3.821 1.006 1.023-3.73-.24-.386A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="ft-logo">Smart<em>Store</em></div>
+  <div class="ft-sub">Los mejores precios en cuentas premium y tecnología 🔥</div>
+  <div class="ft-links">
+    <a href="#hero">Inicio</a>
+    <a href="#digitales">Productos</a>
+    <a href="#combos">Combos</a>
+    <a href="https://wa.me/573215045684?text=Hola,%20quiero%20comprar%20en%20SmartStore" target="_blank">📞 +57 321 5045684</a>
+  </div>
+  <div class="ft-socials">
+    <a class="social" href="https://wa.me/573215045684?text=Hola,%20quiero%20comprar%20en%20SmartStore" target="_blank" title="WhatsApp">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.522 5.849L.057 23.009a1 1 0 001.211 1.329l5.346-1.408A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.502-5.17-1.38l-.371-.219-3.821 1.006 1.023-3.73-.24-.386A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    </a>
+    <a class="social" href="#" title="Instagram">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <a class="social" href="#" title="Facebook">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </a>
+    <a class="social" href="#" title="TikTok">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+    </a>
+  </div>
+  <div class="ft-copy">© 2025 SmartStore · Todos los derechos reservados · WhatsApp: +57 321 5045684</div>
+</footer>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  document.getElementById('tab-' + id).classList.add('on');
+  btn.classList.add('on');
+}
+
+function toggleMenu() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+
+// Reveal on scroll
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Nav shrink on scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').style.height = window.scrollY > 60 ? '54px' : '64px';
+});
+
+// Close mobile menu on outside click
+document.addEventListener('click', e => {
+  const mn = document.getElementById('mobileNav');
+  const burger = document.getElementById('burger');
+  if (mn.classList.contains('open') && !mn.contains(e.target) && !burger.contains(e.target)) {
+    mn.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>
